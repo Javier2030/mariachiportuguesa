@@ -1,0 +1,15 @@
+*
+!.gitignore
+!LICENSE
+!docs/
+!docs/**
+generate.py
+generate_base.py
+config_pt.py
+pages_*.py
+PENDIENTES.md
+page_hashes.json
+*.bundle
+rank_watch.py
+rank_watch.log
+rank_history.json
