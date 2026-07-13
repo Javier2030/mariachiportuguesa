@@ -105,12 +105,12 @@ header{position:sticky;top:0;z-index:50;background:rgba(38,7,12,.72);backdrop-fi
 .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:14px}
 .plan{background:#fff;border:1px solid var(--line);border-radius:22px;padding:32px 26px;position:relative;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s}
 .plan:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--gold)}
-.plan h3{font-size:21px;color:var(--wine)}
-.plan .sub{color:var(--muted);font-size:14px;margin:4px 0 14px}
+.plan h3{font-size:24px;color:var(--wine)}
+.plan .sub{color:var(--muted);font-size:16.5px;margin:4px 0 14px}
 .plan .price{font-family:"Fraunces";font-size:38px;font-weight:900;color:var(--wine);letter-spacing:-.02em;margin-bottom:16px}
 .plan .price small{font-size:16px;color:var(--muted);font-weight:600}
 .plan ul{list-style:none;margin-bottom:22px}
-.plan li{padding:7px 0 7px 28px;position:relative;font-size:14.5px;border-bottom:1px dashed var(--line)}
+.plan li{padding:9px 0 9px 30px;position:relative;font-size:17.5px;line-height:1.45;border-bottom:1px dashed var(--line)}
 .plan li:last-child{border:none}
 .plan li::before{content:"✦";position:absolute;left:4px;color:var(--gold);font-size:13px}
 .plan.pop{background:linear-gradient(165deg,#fff 55%,#fdf6e3);border:2px solid var(--gold);box-shadow:0 18px 50px -14px var(--gold-glow)}
