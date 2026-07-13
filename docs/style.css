@@ -102,17 +102,17 @@ header{position:sticky;top:0;z-index:50;background:rgba(38,7,12,.72);backdrop-fi
 .marquee span{color:var(--gold-2);font-family:"Fraunces";font-style:italic;font-size:16px;margin:0 26px;opacity:.9}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:14px}
-.plan{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 18px;position:relative;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px}
+.plan{background:#fff;border:1px solid var(--line);border-radius:14px;padding:19px 16px;position:relative;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s}
 .plan:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--gold)}
-.plan h3{font-size:17px;color:var(--wine)}
-.plan .sub{color:var(--muted);font-size:12.5px;margin:3px 0 10px}
-.plan .price{font-family:"Fraunces";font-size:27px;font-weight:900;color:var(--wine);letter-spacing:-.02em;margin-bottom:11px}
+.plan h3{font-size:15.5px;color:var(--wine)}
+.plan .sub{color:var(--muted);font-size:11.5px;margin:3px 0 9px}
+.plan .price{font-family:"Fraunces";font-size:24px;font-weight:900;color:var(--wine);letter-spacing:-.02em;margin-bottom:10px}
 .plan .price small{font-size:16px;color:var(--muted);font-weight:600}
 .plan ul{list-style:none;margin-bottom:22px}
-.plan li{padding:7px 0 7px 26px;position:relative;font-size:15.5px;line-height:1.3;border-bottom:1px dashed var(--line)}
+.plan li{padding:6px 0 6px 24px;position:relative;font-size:14px;line-height:1.3;border-bottom:1px dashed var(--line)}
 .plan li:last-child{border:none}
-.plan li::before{content:"✦";position:absolute;left:3px;top:10px;color:var(--gold);font-size:13px}
+.plan li::before{content:"✦";position:absolute;left:3px;top:9px;color:var(--gold);font-size:12px}
 .plan.pop{background:linear-gradient(165deg,#fff 55%,#fdf6e3);border:2px solid var(--gold);box-shadow:0 18px 50px -14px var(--gold-glow)}
 .plan.pop:hover{box-shadow:0 26px 60px -12px var(--gold-glow)}
 .tagpop{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#2d1a05;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 16px;border-radius:999px;box-shadow:0 6px 18px -4px var(--gold-glow)}
@@ -481,4 +481,4 @@ h2.note.zoomed{transform:none;color:var(--gold-2);text-shadow:none}
  background:linear-gradient(180deg,transparent 62%,rgba(20,4,7,.42));opacity:.9;transition:opacity .5s}
 .gallery picture:hover::after{opacity:.25}
 }
-@media(max-width:760px){.plan li{font-size:27px;line-height:1.25;padding:9px 0 9px 32px}.plan li::before{font-size:19px;top:12px}.plan .sub{font-size:13.5px}.plan h3{font-size:20px}}
+@media(max-width:760px){.plan li{font-size:24px;line-height:1.25;padding:8px 0 8px 29px}.plan li::before{font-size:17px;top:11px}.plan .sub{font-size:12px}.plan h3{font-size:18px}}
