@@ -1,7 +1,7 @@
 {
-  "name": "Mariachi Bonito Tecalitlán",
-  "short_name": "Mariachi Bonito",
-  "description": "Serenatas y mariachis a domicilio en Bogotá, las 24 horas. Cotiza por WhatsApp.",
+  "name": "Mariachi Azteca de Acarigua",
+  "short_name": "Mariachi Azteca",
+  "description": "Serenatas con mariachi a domicilio en Acarigua, Araure, Guanare y todo el estado Portuguesa, 24 horas.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -14,7 +14,7 @@
     {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ],
   "shortcuts": [
-    {"name": "Cotizar por WhatsApp", "url": "https://wa.me/573014232500?text=Hola,%20quiero%20cotizar%20una%20serenata"},
-    {"name": "Paquetes y precios", "url": "/mariachis-economicos-bogota.html"}
+    {"name": "Cotizar por WhatsApp", "url": "https://wa.me/584266367615?text=Hola,%20quiero%20cotizar%20una%20serenata"},
+    {"name": "Planes y precios", "url": "/mariachis-acarigua.html"}
   ]
 }
