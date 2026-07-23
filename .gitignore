@@ -13,3 +13,4 @@ page_hashes.json
 rank_watch.py
 rank_watch.log
 rank_history.json
+index_watch.py
