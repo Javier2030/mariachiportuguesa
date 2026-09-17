@@ -1,4 +1,4 @@
-/* Banner de instalación PWA — Mariachi Azteca de Acarigua Tecalitlán */
+/* Banner de instalación PWA — Mariachi Azteca de Acarigua */
 (function () {
   var BRAND = "Mariachi Azteca de Acarigua";
   var ICON = "/icon-192.png";

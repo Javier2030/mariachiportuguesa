@@ -1,7 +1,7 @@
-/* Service Worker — Mariachi Bonito Tecalitlán
+/* Service Worker — Mariachi Azteca de Acarigua
    HTML: red primero (siempre fresco), caché de respaldo (offline).
    Assets (fotos/fuentes/iconos): caché primero (visitas repetidas = 0 ms). */
-const C = 'mb-v2';
+const C = 'maz-v3';
 const CORE = [
   '/', '/manifest.json', '/logo.png',
   '/fonts/fraunces-var.woff2', '/fonts/fraunces-italic.woff2', '/fonts/mulish-var.woff2',
