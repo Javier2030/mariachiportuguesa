@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url><loc>https://mariachiportuguesa.com/</loc><lastmod>2026-09-16</lastmod>
+    <image:image><image:loc>https://mariachiportuguesa.com/fotos/foto-1.jpg</image:loc><image:caption>Mariachi Azteca de Acarigua de noche frente al letrero de Acarigua</image:caption></image:image>
+    <image:image><image:loc>https://mariachiportuguesa.com/fotos/foto-2.jpg</image:loc><image:caption>Los seis músicos del Mariachi Azteca de Acarigua con traje de charro negro, trompetas, violín, guitarrón y vihuela</image:caption></image:image>
+    <image:image><image:loc>https://mariachiportuguesa.com/fotos/foto-3.jpg</image:loc><image:caption>El mariachi con traje blanco en una serenata de cumpleaños con torta y globos</image:caption></image:image>
+    <image:image><image:loc>https://mariachiportuguesa.com/fotos/foto-4.jpg</image:loc><image:caption>Serenata de cumpleaños número 50 con el mariachi en traje de charro negro</image:caption></image:image>
+    <image:image><image:loc>https://mariachiportuguesa.com/fotos/foto-5.jpg</image:loc><image:caption>Los músicos del mariachi junto a la homenajeada de una serenata a domicilio</image:caption></image:image>
+    <image:image><image:loc>https://mariachiportuguesa.com/fotos/foto-6.jpg</image:loc><image:caption>Serenata a domicilio en la puerta de la casa, de noche</image:caption></image:image>
+    <image:image><image:loc>https://mariachiportuguesa.com/fotos/foto-7.jpg</image:loc><image:caption>Músicos del mariachi cantando con guitarra y guitarrón durante una serenata</image:caption></image:image>
+    <image:image><image:loc>https://mariachiportuguesa.com/fotos/foto-8.jpg</image:loc><image:caption>Serenata con mariachi en un restaurante, con ramo de flores para la homenajeada</image:caption></image:image>
+    <image:image><image:loc>https://mariachiportuguesa.com/fotos/foto-9.jpg</image:loc><image:caption>Celebración de cumpleaños con mariachi y torta bajo techo</image:caption></image:image>
   </url>
   <url><loc>https://mariachiportuguesa.com/nuestro-mariachi.html</loc><lastmod>2026-07-12</lastmod>
   </url>
