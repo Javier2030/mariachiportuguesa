@@ -485,3 +485,6 @@ h2.note.zoomed{transform:none;color:var(--gold-2);text-shadow:none}
 .gallery picture:hover::after{opacity:.25}
 }
 @media(max-width:760px){.plan li{font-size:24px;line-height:1.25;padding:8px 0 8px 29px}.plan li::before{font-size:17px;top:11px}.plan .sub{font-size:12px}.plan h3{font-size:18px}}
+
+.prose a,.qa .a a{color:var(--gold-2);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;font-weight:700}
+.prose a:hover{color:#fff}
