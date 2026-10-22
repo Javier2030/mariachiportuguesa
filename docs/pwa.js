@@ -1,3 +1,128 @@
+(function () {
+/* Red social de origen del visitante */
+var redOrigen = (function () {
+  var W = window, D = document, VIDA = 30 * 864e5, CLAVE = 'mpgOrigen';
+  var insignias = {
+    instagram: '📸 Vengo de Instagram — ',
+    facebook: '👍 Vengo de Facebook — ',
+    tiktok: '🎵 Vengo de TikTok — '
+  };
+  var holaBase = 'Hola, quiero información de una serenata.';
+  var yaTiene = /Vengo de (Instagram|Facebook|TikTok) — /;
+  var enlaceWhats = /^(?:(?:https?:)?\/\/(?:wa\.me|(?:www\.|api\.|web\.)?whatsapp\.com)(?:[\/?#]|$)|whatsapp:\/\/)/i;
+
+  function paramUrl(n) {
+    var s = W.location.search;
+    try { return new URLSearchParams(s).get(n); } catch (e) {
+      var m = new RegExp('[?&]' + n + '(?:=([^&]*))?(?:&|$)').exec(s);
+      return m ? (m[1] || '') : null;
+    }
+  }
+  function hostDe() {
+    var m = /^https?:\/\/([^\/?#:]+)/i.exec(D.referrer || '');
+    return m ? m[1].toLowerCase() : '';
+  }
+  function descubreRed() {
+    var us = (paramUrl('utm_source') || '').toLowerCase(), h = hostDe(), ua = navigator.userAgent || '';
+    if (us === 'instagram' || us === 'ig' || paramUrl('ig') !== null) return 'instagram';
+    if (us === 'facebook' || us === 'fb') return 'facebook';
+    if (us === 'tiktok') return 'tiktok';
+    if (/(^|\.)instagram\.com$/.test(h) || /Instagram/.test(ua)) return 'instagram';
+    if (paramUrl('fbclid') !== null || /(^|\.)facebook\.com$/.test(h) || /FBAN|FBAV/.test(ua)) return 'facebook';
+    if (/(^|\.)tiktok\.com$/.test(h) || /musical_ly|BytedanceWebview|TikTok/.test(ua)) return 'tiktok';
+    return null;
+  }
+  function redGuardada() {
+    var r;
+    try { r = JSON.parse(localStorage.getItem(CLAVE)); if (r && insignias[r.o] && Date.now() - r.t < VIDA) return r.o; } catch (e) {}
+    try { r = JSON.parse(sessionStorage.getItem(CLAVE)); if (r && insignias[r.o]) return r.o; } catch (e) {}
+    return null;
+  }
+  function memorizaRed(o) {
+    var s = JSON.stringify({ o: o, t: Date.now() });
+    try { localStorage.setItem(CLAVE, s); } catch (e) {}
+    try { sessionStorage.setItem(CLAVE, s); } catch (e) {}
+  }
+
+  var nuevo = descubreRed(), red = nuevo || redGuardada();
+  if (nuevo) memorizaRed(nuevo);
+  if (!red) return function () { return null; };
+
+  function anteponeMarca(u) {
+    if (typeof u !== 'string' || !enlaceWhats.test(u)) return u;
+    var orig = u, m = insignias[red], hash = '', i = u.indexOf('#');
+    if (i > -1) { hash = u.slice(i); u = u.slice(0, i); }
+    var q = u.indexOf('?'), base = q < 0 ? u : u.slice(0, q);
+    var ps = q < 0 ? [] : u.slice(q + 1).split('&').filter(Boolean), hecho = false;
+    for (var j = 0; j < ps.length && !hecho; j++) {
+      if (!/^text=/i.test(ps[j])) continue;
+      var v = ps[j].slice(5), d = v;
+      try { d = decodeURIComponent(v.replace(/\+/g, ' ')); } catch (e) {}
+      hecho = true;
+      if (yaTiene.test(d)) return orig;
+      ps[j] = /^\s*$/.test(d) ? 'text=' + encodeURIComponent(m + holaBase) : 'text=' + encodeURIComponent(m) + v;
+    }
+    if (!hecho) ps.push('text=' + encodeURIComponent(m + holaBase));
+    return base + '?' + ps.join('&') + hash;
+  }
+  function marcaNodo(el) {
+    if (!el || !el.getAttribute) return;
+    var h = el.getAttribute('href');
+    if (h) { var n = anteponeMarca(h); if (n !== h) el.setAttribute('href', n); }
+    var c = el.getAttribute('onclick');
+    if (c && /wa\.me|whatsapp/i.test(c)) {
+      var n2 = c.replace(/https?:\/\/(?:wa\.me\/\d+|(?:api|web|www)\.whatsapp\.com\/send)[^'"\s)]*(?=['"])/gi, anteponeMarca);
+      if (n2 !== c) el.setAttribute('onclick', n2);
+    }
+  }
+  function marcaTodo() {
+    var l = D.querySelectorAll('a[href*="wa.me"],a[href*="whatsapp"],[onclick*="wa.me"],[onclick*="whatsapp"]');
+    for (var i = 0; i < l.length; i++) marcaNodo(l[i]);
+  }
+
+  marcaTodo();
+  if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', marcaTodo);
+  // enlaces que aparecen después de cargar
+  if (W.MutationObserver) {
+    var t = 0;
+    new MutationObserver(function () {
+      if (t) return;
+      t = setTimeout(function () { t = 0; marcaTodo(); }, 60);
+    }).observe(D.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['href', 'onclick'] });
+  }
+  // por captura: lo que se haya tocado a mano justo antes del clic también lleva la marca
+  D.addEventListener('click', function (e) {
+    for (var el = e.target; el && el !== D; el = el.parentNode) marcaNodo(el);
+  }, true);
+  // aperturas programáticas (formularios)
+  var abrir = W.open;
+  W.open = function (u) {
+    var a = Array.prototype.slice.call(arguments);
+    a[0] = anteponeMarca(u);
+    return abrir.apply(W, a);
+  };
+
+  // medición
+  function contaRed() {
+    try {
+      if (typeof W.clarity === 'function') {
+        W.clarity('set', 'origen', red);
+        if (nuevo && !sessionStorage.getItem(CLAVE + 'c')) { sessionStorage.setItem(CLAVE + 'c', '1'); W.clarity('event', 'llegada_' + red); }
+      }
+    } catch (e) {}
+    try {
+      if (typeof W.gtag === 'function') {
+        W.gtag('set', { origen_visita: red });
+        if (nuevo && !sessionStorage.getItem(CLAVE + 'g')) { sessionStorage.setItem(CLAVE + 'g', '1'); W.gtag('event', 'llegada_origen', { origen: red }); }
+      }
+    } catch (e) {}
+  }
+  contaRed();
+  W.addEventListener('load', function () { contaRed(); setTimeout(contaRed, 4000); });
+  return function () { return red; };
+})();
+
+})();
 /* Banner de instalación PWA — Mariachi Azteca de Acarigua */
 (function () {
   var BRAND = "Mariachi Azteca de Acarigua";
