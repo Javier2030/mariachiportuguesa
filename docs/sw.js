@@ -1,47 +1,52 @@
-/* Service Worker — Mariachi Azteca de Acarigua
-   HTML: red primero (siempre fresco), caché de respaldo (offline).
-   Assets (fotos/fuentes/iconos): caché primero (visitas repetidas = 0 ms). */
-const C = 'maz-v4';
-const CORE = [
-  '/', '/manifest.json', '/logo.png',
-  '/fonts/fraunces-var.woff2', '/fonts/fraunces-italic.woff2', '/fonts/mulish-var.woff2',
-  '/fotos/hero-m.avif', '/fotos/hero-m.jpg'
-];
+const CACHE = 'azp-acarigua-2611';
+const PRECARGA = ['/', '/manifest.json', '/logo.png', '/fotos/hero-m.avif', '/fotos/hero-m.jpg'];
 
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(C).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
+self.addEventListener('install', ev => {
+  ev.waitUntil(
+    caches.open(CACHE)
+      .then(cache => cache.addAll(PRECARGA))
+      .then(() => self.skipWaiting())
+  );
 });
 
-self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(ks =>
-    Promise.all(ks.filter(k => k !== C).map(k => caches.delete(k)))
-  ).then(() => self.clients.claim()));
+self.addEventListener('activate', ev => {
+  ev.waitUntil(
+    caches.keys()
+      .then(claves => Promise.all(claves.filter(k => k !== CACHE).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
 });
 
-self.addEventListener('fetch', e => {
-  const req = e.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
+self.addEventListener('fetch', ev => {
+  const pedido = ev.request;
+  if (pedido.method !== 'GET') return;
+  if (new URL(pedido.url).origin !== self.location.origin) return;
 
-  if (req.mode === 'navigate') {
-    e.respondWith(
-      fetch(req).then(res => {
-        const copy = res.clone();
-        caches.open(C).then(c => c.put(req, copy));
-        return res;
-      }).catch(() => caches.match(req).then(r => r || caches.match('/')))
+  if (pedido.mode === 'navigate') {
+    ev.respondWith(
+      fetch(pedido)
+        .then(resp => {
+          const guardar = resp.clone();
+          caches.open(CACHE).then(cache => cache.put(pedido, guardar));
+          return resp;
+        })
+        .catch(() => caches.match(pedido).then(previo => previo || caches.match('/')))
     );
     return;
   }
 
-  // Assets: stale-while-revalidate — muestra del caché al instante Y baja la versión fresca
-  // en segundo plano, para que fotos nuevas/cambiadas lleguen solas en la siguiente visita.
-  e.respondWith(
-    caches.match(req).then(hit => {
-      const fresh = fetch(req).then(res => {
-        if (res.ok) { const copy = res.clone(); caches.open(C).then(c => c.put(req, copy)); }
-        return res;
-      }).catch(() => hit);
-      return hit || fresh;
+  ev.respondWith(
+    caches.match(pedido).then(previo => {
+      const red = fetch(pedido)
+        .then(resp => {
+          if (resp.ok) {
+            const guardar = resp.clone();
+            caches.open(CACHE).then(cache => cache.put(pedido, guardar));
+          }
+          return resp;
+        })
+        .catch(() => previo);
+      return previo || red;
     })
   );
 });
